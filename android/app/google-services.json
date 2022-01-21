@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1013770986733",
+    "project_id": "aphrodate-62df8",
+    "storage_bucket": "aphrodate-62df8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013770986733:android:013230f5f5484614ce58e4",
+        "android_client_info": {
+          "package_name": "aphrodate.com.aphrodate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013770986733-vl80g6bo0mn6gl70kt4mt9lvlu51p4if.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX7gbfzowQniGungV-4u1DqX_aU6BuhFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013770986733-vl80g6bo0mn6gl70kt4mt9lvlu51p4if.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
