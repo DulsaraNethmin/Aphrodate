@@ -13,14 +13,14 @@ class _LoginPageState extends State<LoginPage> {
       child: Hero(
           tag: 'hero',
           child: CircleAvatar(
-            backgroundColor: Colors.red.shade900,
+            backgroundColor: Colors.black,
             radius: 56.0,
-            child: Image.asset('images/app-logo.png'),
+            child: Image.asset('images/rose-red.png'),
           )
       ),
     );
     final loginText= Row(
-      children: [Text("Login",style: TextStyle(color: Colors.black,fontFamily: 'Comfortaa-Bold', fontSize: 36,letterSpacing: 2.0),)],
+      children: [Text("LOGIN",style: TextStyle(color: Colors.black,fontFamily: 'Comfortaa-Bold', fontSize: 36,letterSpacing: 2.0),)],
     );
     final inputEmail = Padding(
       padding: EdgeInsets.only(bottom: 10,top: 10),
