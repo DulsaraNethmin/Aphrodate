@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     final logo = Padding(
@@ -19,8 +18,8 @@ class _LoginPageState extends State<LoginPage> {
           )
       ),
     );
-    final loginText= Row(
-      children: [Text("LOGIN",style: TextStyle(color: Colors.black,fontFamily: 'Comfortaa-Bold', fontSize: 36,letterSpacing: 2.0),)],
+    final signupText= Row(
+      children: [Text("JOIN",style: TextStyle(color: Colors.black,fontFamily: 'Comfortaa-Bold', fontSize: 36,letterSpacing: 2.0),)],
     );
     final inputEmail = Padding(
       padding: EdgeInsets.only(bottom: 10,top: 10),
@@ -49,7 +48,22 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-    final buttonLogin = Padding(
+
+    final inputConfirmPassword = Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: TextField(
+        keyboardType: TextInputType.emailAddress,
+        obscureText: true,
+        decoration: InputDecoration(
+            hintText: 'Confirm Password',
+            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50.0)
+            )
+        ),
+      ),
+    );
+    final buttonSignup = Padding(
       padding: EdgeInsets.only(bottom: 5),
       child: ButtonTheme(
         height: 56,
@@ -69,13 +83,11 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TextButton(
-            child: Text('Join', style: TextStyle(color: Colors.grey, fontSize: 16,fontFamily: 'Roboto-mono'),),
-            onPressed:()=>{Navigator.pushNamed(context, '/signup')}
+            child: Text('Login', style: TextStyle(color: Colors.grey, fontSize: 16,fontFamily: 'Roboto-mono'),),
+            onPressed:()=>{
+              Navigator.pushNamed(context, '/')
+            }
         ),
-    TextButton(
-    child: Text('Forgot Password', style: TextStyle(color: Colors.grey, fontSize: 16,fontFamily: 'Roboto-mono'),),
-        onPressed: null
-    ),
       ],
     );
 
@@ -87,10 +99,11 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 logo,
-                loginText,
+                signupText,
                 inputEmail,
                 inputPassword,
-                buttonLogin,
+                inputConfirmPassword,
+                buttonSignup,
                 buttonForgotPassword
               ],
             ),
