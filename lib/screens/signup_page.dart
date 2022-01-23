@@ -1,4 +1,5 @@
 import 'package:aphrodate/services/auth.dart';
+import 'package:aphrodate/services/validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,11 @@ class _LoginPageState extends State<SignupPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
   TextEditingController _confirmpasswordcontroller = TextEditingController();
-
+  Widget  errorText=Text('');
   @override
   Widget build(BuildContext context) {
     Auth auth = Auth();
+    Validator validator = Validator();
     final mq = MediaQuery.of(context);
     final logo = Padding(
       padding: EdgeInsets.all(20),
@@ -78,6 +80,10 @@ class _LoginPageState extends State<SignupPage> {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
       ),
     );
+
+    //var errorText=Text('no');
+
+    Widget temp=Text('');
     final buttonSignup = Padding(
       padding: EdgeInsets.only(bottom: 5),
       child: ButtonTheme(
@@ -93,22 +99,28 @@ class _LoginPageState extends State<SignupPage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
           onPressed: () async => {
-            print(_emailcontroller.text),
-            auth.signUp(
-                email: _emailcontroller.text,
-                password: _passwordcontroller.text),
-            if (FirebaseAuth.instance.currentUser != null)
-              {
-                print('account create success'),
-                Navigator.pushNamed(context, '/'),
-              }
-            else
-              {
-                setState(() {
-                  _passwordcontroller.text = '';
-                  _confirmpasswordcontroller.text='';
-                })
-              },
+            setState(() {
+              errorText=validator.signUpValidator(email: _emailcontroller.text,password: _passwordcontroller.text,conPassword: _confirmpasswordcontroller.text);
+            }),
+            if(errorText.runtimeType==Text){
+              setState(()async {
+                errorText=await auth.signUp(
+                    email: _emailcontroller.text,
+                    password: _passwordcontroller.text);
+              }),
+              if (FirebaseAuth.instance.currentUser != null)
+                {
+                  print('account create success'),
+                  //Navigator.pushNamed(context, '/'),
+                }
+              else
+                {
+                  setState(() {
+                    _passwordcontroller.text = '';
+                    _confirmpasswordcontroller.text='';
+                  })
+                },
+            },
           },
         ),
       ),
@@ -142,6 +154,7 @@ class _LoginPageState extends State<SignupPage> {
                 inputEmail,
                 inputPassword,
                 inputConfirmPassword,
+                errorText,
                 buttonSignup,
                 buttonForgotPassword
               ],
@@ -153,16 +166,3 @@ class _LoginPageState extends State<SignupPage> {
   }
 }
 
-// ListView(
-// shrinkWrap: true,
-// padding: EdgeInsets.symmetric(horizontal: 20),
-// children: <Widget>[
-// logo,
-// signupText,
-// inputEmail,
-// inputPassword,
-// inputConfirmPassword,
-// buttonSignup,
-// buttonForgotPassword
-// ],
-// ),
