@@ -1,3 +1,4 @@
+import 'package:aphrodate/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,8 +9,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Auth auth =Auth();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('home screen'),);
+    return Scaffold(body: SafeArea(
+      child: ElevatedButton(
+        child: Text('logout'),
+        onPressed: (){
+          print('log out');
+          auth.signout();
+          Navigator.pushNamed(context, '/');
+        },
+      ),
+    ),);
   }
 }

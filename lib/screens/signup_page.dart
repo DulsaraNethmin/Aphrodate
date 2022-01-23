@@ -106,19 +106,20 @@ class _LoginPageState extends State<SignupPage> {
                 errorText=await auth.signUp(
                     email: _emailcontroller.text,
                     password: _passwordcontroller.text);
-              }),
-              if (FirebaseAuth.instance.currentUser != null)
+                if (FirebaseAuth.instance.currentUser != null)
                 {
-                  print('account create success'),
-                  Navigator.pushNamed(context, '/'),
+                  print('account create success');
+                Navigator.pushNamed(context, '/');
                 }
-              else
+                else
                 {
-                  setState(() {
-                    _passwordcontroller.text = '';
-                    _confirmpasswordcontroller.text='';
-                  })
-                },
+                setState(() {
+                _passwordcontroller.text = '';
+                _confirmpasswordcontroller.text='';
+                });
+                }
+              }),
+
             },
           },
         ),

@@ -84,4 +84,13 @@ class Auth {
     }
     return await Text('');
   }
+
+  signout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print('logged out');
+    } catch (e) {
+      print(e);
+    }
+  }
 }

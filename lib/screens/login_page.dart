@@ -88,18 +88,19 @@ class _LoginPageState extends State<LoginPage> {
                 errorText=await auth.signIn(
                     email: _emailcontroller.text,
                     password: _passwordcontroller.text);
-              }),
-              if (FirebaseAuth.instance.currentUser != null)
+                if ( await FirebaseAuth.instance.currentUser != null)
                 {
-                  print('account create success'),
-                  Navigator.pushNamed(context, '/home'),
+                  print('account create success');
+                  await Navigator.pushNamed(context, '/home');
                 }
-              else
+                else
                 {
-                  setState(() {
-                    _passwordcontroller.text = '';
-                  })
-                },
+                setState(() {
+                _passwordcontroller.text = '';
+                });
+                }
+              }),
+
             },
           },
         ),
