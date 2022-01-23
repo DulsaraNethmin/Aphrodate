@@ -40,4 +40,28 @@ class Validator{
       }
       return Text('');
   }
+
+
+  Widget signInValidator({String email='',String password=''}){
+    if(password.isEmpty || email.isEmpty){
+      print('all null');
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Text('Fields should not be empty',style: TextStyle(fontFamily: 'Roboto-mono',fontSize: 15,color: Colors.red.shade600),),
+      );
+    }
+    if(!emailValidate(email)){
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Text('Invalid email or password',style: TextStyle(fontFamily: 'Roboto-mono',fontSize: 15,color: Colors.red.shade600),),
+      );
+    }
+    if(password.length<6){
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Text('Password length should be more than 6',style: TextStyle(fontFamily: 'Roboto-mono',fontSize: 15,color: Colors.red.shade600),),
+      );
+    }
+    return Text('');
+  }
 }

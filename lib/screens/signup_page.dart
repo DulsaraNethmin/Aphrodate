@@ -83,7 +83,6 @@ class _LoginPageState extends State<SignupPage> {
 
     //var errorText=Text('no');
 
-    Widget temp=Text('');
     final buttonSignup = Padding(
       padding: EdgeInsets.only(bottom: 5),
       child: ButtonTheme(
@@ -111,7 +110,7 @@ class _LoginPageState extends State<SignupPage> {
               if (FirebaseAuth.instance.currentUser != null)
                 {
                   print('account create success'),
-                  //Navigator.pushNamed(context, '/'),
+                  Navigator.pushNamed(context, '/'),
                 }
               else
                 {

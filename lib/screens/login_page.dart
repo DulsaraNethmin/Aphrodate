@@ -1,3 +1,6 @@
+import 'package:aphrodate/services/auth.dart';
+import 'package:aphrodate/services/validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -6,8 +9,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formkey = GlobalKey<FormState>();
+  TextEditingController _emailcontroller = TextEditingController();
+  TextEditingController _passwordcontroller = TextEditingController();
+  Widget  errorText=Text('');
   @override
   Widget build(BuildContext context) {
+    Auth auth = Auth();
+    Validator validator = Validator();
+    final mq = MediaQuery.of(context);
     final logo = Padding(
       padding: EdgeInsets.all(20),
       child: Hero(
@@ -33,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     final inputEmail = Padding(
       padding: EdgeInsets.only(bottom: 10, top: 10),
       child: TextField(
+        controller: _emailcontroller,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Email',
@@ -44,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     final inputPassword = Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: TextField(
+        controller: _passwordcontroller,
         keyboardType: TextInputType.emailAddress,
         obscureText: true,
         decoration: InputDecoration(
@@ -57,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.only(bottom: 5),
       child: ButtonTheme(
         height: 56,
+        minWidth: mq.size.width / 1,
         child: RaisedButton(
           child: Text('Next',
               style: TextStyle(
@@ -66,8 +79,28 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.black87,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () => {
-            Navigator.pushNamed(context, '/home')
+          onPressed: () async => {
+            setState(() {
+              errorText=validator.signInValidator(email: _emailcontroller.text,password: _passwordcontroller.text);
+            }),
+            if(errorText.runtimeType==Text){
+              setState(()async {
+                errorText=await auth.signIn(
+                    email: _emailcontroller.text,
+                    password: _passwordcontroller.text);
+              }),
+              if (FirebaseAuth.instance.currentUser != null)
+                {
+                  print('account create success'),
+                  Navigator.pushNamed(context, '/home'),
+                }
+              else
+                {
+                  setState(() {
+                    _passwordcontroller.text = '';
+                  })
+                },
+            },
           },
         ),
       ),
@@ -94,20 +127,50 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
         child: Scaffold(
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          children: <Widget>[
-            logo,
-            loginText,
-            inputEmail,
-            inputPassword,
-            buttonLogin,
-            buttonForgotPassword
-          ],
-        ),
-      ),
-    ));
+          body: Center(
+            child: Form(
+              key: _formkey,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    logo,
+                    loginText,
+                    inputEmail,
+                    inputPassword,
+                    errorText,
+                    buttonLogin,
+                    buttonForgotPassword
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
+
+
+
+
+//     return SafeArea(
+//         child: Scaffold(
+//       body: Center(
+//         child: ListView(
+//           shrinkWrap: true,
+//           padding: EdgeInsets.symmetric(horizontal: 20),
+//           children: <Widget>[
+//             logo,
+//             loginText,
+//             inputEmail,
+//             inputPassword,
+//             buttonLogin,
+//             buttonForgotPassword
+//           ],
+//         ),
+//       ),
+//     ));
+//   }
+// }
