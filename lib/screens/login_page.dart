@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
@@ -14,25 +14,31 @@ class _LoginPageState extends State<LoginPage> {
           tag: 'hero',
           child: CircleAvatar(
             backgroundColor: Colors.black,
-            radius: 56.0,
+            radius: 40.0,
             child: Image.asset('images/rose-red.png'),
-          )
-      ),
+          )),
     );
-    final loginText= Row(
-      children: [Text("LOGIN",style: TextStyle(color: Colors.black,fontFamily: 'Comfortaa-Bold', fontSize: 36,letterSpacing: 2.0),)],
+    final loginText = Row(
+      children: [
+        Text(
+          "LOGIN",
+          style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Comfortaa-Bold',
+              fontSize: 36,
+              letterSpacing: 2.0),
+        )
+      ],
     );
     final inputEmail = Padding(
-      padding: EdgeInsets.only(bottom: 10,top: 10),
+      padding: EdgeInsets.only(bottom: 10, top: 10),
       child: TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Email',
             contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50.0)
-            )
-        ),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
       ),
     );
     final inputPassword = Padding(
@@ -43,10 +49,8 @@ class _LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
             hintText: 'Password',
             contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50.0)
-            )
-        ),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
       ),
     );
     final buttonLogin = Padding(
@@ -54,13 +58,16 @@ class _LoginPageState extends State<LoginPage> {
       child: ButtonTheme(
         height: 56,
         child: RaisedButton(
-          child: Text('Next', style: TextStyle(color: Colors.white, fontSize: 20,fontFamily: 'Roboto-mono')),
+          child: Text('Next',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'Roboto-mono')),
           color: Colors.black87,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
           onPressed: () => {
-
+            Navigator.pushNamed(context, '/home')
           },
         ),
       ),
@@ -69,33 +76,38 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TextButton(
-            child: Text('Join', style: TextStyle(color: Colors.grey, fontSize: 16,fontFamily: 'Roboto-mono'),),
-            onPressed:()=>{Navigator.pushNamed(context, '/signup')}
-        ),
-    TextButton(
-    child: Text('Forgot Password', style: TextStyle(color: Colors.grey, fontSize: 16,fontFamily: 'Roboto-mono'),),
-        onPressed: null
-    ),
+            child: Text(
+              'Join',
+              style: TextStyle(
+                  color: Colors.grey, fontSize: 16, fontFamily: 'Roboto-mono'),
+            ),
+            onPressed: () => {Navigator.pushNamed(context, '/signup')}),
+        TextButton(
+            child: Text(
+              'Forgot Password',
+              style: TextStyle(
+                  color: Colors.grey, fontSize: 16, fontFamily: 'Roboto-mono'),
+            ),
+            onPressed: null),
       ],
     );
 
     return SafeArea(
         child: Scaffold(
-          body: Center(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              children: <Widget>[
-                logo,
-                loginText,
-                inputEmail,
-                inputPassword,
-                buttonLogin,
-                buttonForgotPassword
-              ],
-            ),
-          ),
-        )
-    );
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          children: <Widget>[
+            logo,
+            loginText,
+            inputEmail,
+            inputPassword,
+            buttonLogin,
+            buttonForgotPassword
+          ],
+        ),
+      ),
+    ));
   }
 }

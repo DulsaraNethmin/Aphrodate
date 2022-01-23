@@ -1,4 +1,5 @@
-import 'package:aphrodate/screens/signin_page.dart';
+import 'package:aphrodate/screens/home.dart';
+import 'package:aphrodate/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         //'/': (context) => OpenScreen(),
        '/': (context) => LoginPage(),
         '/signup':(context)=>SignupPage(),
+        '/home':(context)=>HomeScreen(),
       },
     );
   }
