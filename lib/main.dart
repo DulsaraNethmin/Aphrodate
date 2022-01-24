@@ -1,3 +1,4 @@
+import 'package:aphrodate/screens/editProfile.dart';
 import 'package:aphrodate/screens/home.dart';
 import 'package:aphrodate/screens/signup_page.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
        '/': (context) => LoginPage(),
         '/signup':(context)=>SignupPage(),
         '/home':(context)=>HomeScreen(),
+        '/editProfile':(context)=>EditProfile(),
       },
     );
   }

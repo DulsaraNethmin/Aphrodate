@@ -89,6 +89,7 @@ class Auth {
     try {
       await FirebaseAuth.instance.signOut();
       print('logged out');
+      //Navigator.pushNamed(context, '/');
     } catch (e) {
       print(e);
     }

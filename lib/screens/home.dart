@@ -1,3 +1,9 @@
+import 'package:aphrodate/screens/chat.dart';
+import 'package:aphrodate/screens/editProfile.dart';
+import 'package:aphrodate/screens/feed.dart';
+import 'package:aphrodate/screens/filter.dart';
+import 'package:aphrodate/screens/newPost.dart';
+import 'package:aphrodate/screens/profile.dart';
 import 'package:aphrodate/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,55 +15,103 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Auth auth =Auth();
+  Auth auth = Auth();
+  Feed feed = Feed();
+  Filter filter = Filter();
+  NewPost newPost = NewPost();
+  Chat chat = Chat();
+  Profile profile = Profile();
+  EditProfile editProfile = EditProfile();
+  int index=0;
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final appbar=BottomNavigationBar(
+    final appbar = BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Color(0xFF6200EE),
-      selectedItemColor: Colors.white,
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.red,
       unselectedItemColor: Colors.white.withOpacity(.60),
       selectedFontSize: 14,
       unselectedFontSize: 14,
+      currentIndex: index,
       onTap: (value) {
         // Respond to item press.
+        setState(() {
+          index=value;
+        });
+        print(index);
       },
       items: [
         BottomNavigationBarItem(
-          label: 'Favorites',
-          icon: Icon(Icons.favorite),
+          label: '',
+          icon: Icon(
+            Icons.home_outlined,
+            color: Colors.black,
+          ),
         ),
         BottomNavigationBarItem(
-          label: 'Music',
-          icon: Icon(Icons.music_note),
+          label: '',
+          icon: Icon(
+            Icons.search_outlined,
+            color: Colors.black,
+          ),
         ),
         BottomNavigationBarItem(
-          label: 'Places',
-          icon: Icon(Icons.location_on),
+          label: '',
+          icon: Image.asset(
+            'images/add-post3.png',
+            scale: 1.5,
+          ),
         ),
         BottomNavigationBarItem(
-          label: 'News',
-          icon: Icon(Icons.library_books),
+          label: '',
+          icon: Icon(
+            Icons.chat_bubble_outline,
+            color: Colors.black,
+          ),
+        ),
+        BottomNavigationBarItem(
+          label: '',
+          icon: Icon(
+            Icons.person_outline,
+            color: Colors.black,
+          ),
         ),
       ],
+      elevation: 0,
     );
 
-    final topAppBar=AppBar(
-      leading: Image.asset('images/rose-red.png',width: mq.size.width/2,height: 10,),
-      title: Text(
-          'Aphrodate',
-              style: TextStyle(fontFamily: 'Comfortaa-Bold',fontSize: 30),
+    final topAppBar = AppBar(
+      leading: Image.asset(
+        'images/app-logo.png',
+        scale: 3,
       ),
-      backgroundColor: Colors.black,
+      title: Text(
+        'Aphrodate',
+        style: TextStyle(
+            fontFamily: 'Comfortaa-Bold', fontSize: 30, color: Colors.black),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.white,
     );
+
+    List<Widget> _widgetOptions = <Widget>[
+      feed.show(),
+      filter.show(),
+      newPost.show(),
+      chat.show(),
+      profile,
+      editProfile,
+    ];
+
 
     return Scaffold(
-      appBar:topAppBar ,
+      appBar: topAppBar,
       bottomNavigationBar: appbar,
       body: SafeArea(
-      child:Text('body'),
-    ),);
+        child:_widgetOptions[index],
+      ),
+    );
   }
 }
 
