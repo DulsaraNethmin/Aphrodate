@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:country_picker/country_picker.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -25,6 +26,7 @@ class _EditProfileState extends State<EditProfile> {
   File ? image;
   String? _value;
   String? _value_sex;
+  String country="Location";
   @override
   Widget build(BuildContext context) {
     final topAppBar = AppBar(
@@ -46,6 +48,7 @@ class _EditProfileState extends State<EditProfile> {
         IconButton(icon: Icon(Icons.save),onPressed: (){},),
       ],
     );
+
     return Scaffold(
       appBar: topAppBar,
       body: Form(
@@ -70,7 +73,8 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 20,
             ),
-            titleTextField(),
+            location(),
+            //show(),
             SizedBox(
               height: 20,
             ),
@@ -182,7 +186,7 @@ class _EditProfileState extends State<EditProfile> {
             )),
         prefixIcon: Icon(
           Icons.person,
-          color: Colors.green,
+          color: Colors.black,
         ),
         labelText: "Name",
         helperText: "Name can't be empty",
@@ -259,66 +263,56 @@ class _EditProfileState extends State<EditProfile> {
       ),
     );
   }
-
-
-
-
-  Widget dobField() {
-    return TextFormField(
-      controller: _dob,
-      validator: (value) {
-        if (value == null) return "DOB can't be empty";
-
-        return null;
-      },
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.teal,
-            )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.green,
+  Widget location() {
+    return Row(
+      //mainAxisAlignment: MainAxisAlignment.,
+      children: [
+        ElevatedButton(onPressed: (){showLocation();}, child: Text('Location')),
+        Container(
+          width: 200,
+          height:40,
+          margin:EdgeInsets.only(left: 15),
+          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+          child: Text(country),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
         ),
-        labelText: "Date Of Birth",
-        helperText: "Provide DOB on dd/mm/yyyy",
-        hintText: "01/01/2020",
-      ),
+      ],
     );
   }
 
-  Widget titleTextField() {
-    return TextFormField(
-      controller: _title,
-      validator: (value) {
-        if (value == null) return "Title can't be empty";
 
-        return null;
-      },
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.teal,
-            )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.green,
-        ),
-        labelText: "Title",
-        helperText: "It can't be empty",
-        hintText: "Flutter Developer",
-      ),
-    );
+
+  void showLocation(){
+    showCountryPicker(
+                context: context,
+                countryListTheme: CountryListThemeData(
+                  flagSize: 25,
+                  backgroundColor: Colors.white,
+                  textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                  //Optional. Sets the border radius for the bottomsheet.
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  //Optional. Styles the search field.
+                  inputDecoration: InputDecoration(
+                    labelText: 'Search',
+                    hintText: 'Start typing to search',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: const Color(0xFF8C98A8).withOpacity(0.2),
+                      ),
+                    ),
+                  ),
+                ),
+                onSelect: (Country country) => setState(() {
+                  this.country=country.name;
+                }),
+              );
   }
 
   Widget aboutTextField() {
