@@ -18,14 +18,14 @@ class _EditProfileState extends State<EditProfile> {
   late PickedFile _imageFile;
   final _globalkey = GlobalKey<FormState>();
   TextEditingController _name = TextEditingController();
-  TextEditingController _profession = TextEditingController();
+  TextEditingController _genderval = TextEditingController();
   TextEditingController _dob = TextEditingController();
   TextEditingController _title = TextEditingController();
   TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File ? image;
-  String? _value;
-  String? _value_sex;
+  String? _gender;
+  String? _sexuality;
   String country="Location";
   @override
   Widget build(BuildContext context) {
@@ -204,7 +204,7 @@ class _EditProfileState extends State<EditProfile> {
       ),
       child:DropdownButtonHideUnderline(
         child: DropdownButton(
-          value: _value,
+          value: _gender,
           items: list_items.map((String item) {
             return DropdownMenuItem<String>(
               child: Text('$item'),
@@ -213,7 +213,7 @@ class _EditProfileState extends State<EditProfile> {
           }).toList(),
           onChanged:(value) {
             setState(() {
-              _value = value as String;
+              _gender = value as String;
             });
           },
           hint:Text("Gender"),
@@ -239,7 +239,7 @@ class _EditProfileState extends State<EditProfile> {
       ),
       child:DropdownButtonHideUnderline(
         child: DropdownButton(
-          value: _value_sex,
+          value: _sexuality,
           items: list_items.map((String item) {
             return DropdownMenuItem<String>(
               child: Text('$item'),
@@ -248,7 +248,7 @@ class _EditProfileState extends State<EditProfile> {
           }).toList(),
           onChanged:(value) {
             setState(() {
-              _value_sex = value as String;
+              _sexuality = value as String;
             });
           },
           hint:Text("Sexuality"),
